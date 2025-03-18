@@ -3,7 +3,7 @@
 $hostname = "localhost";
 $username = "root";
 $password = "";
-$database_name = "buku_tamu";
+$database_name = "sistem_reservasi";
 
 // Membuat koneksi ke database
 $db = mysqli_connect($hostname, $username, $password, $database_name);
