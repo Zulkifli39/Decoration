@@ -9,6 +9,7 @@
     <footer>
       <hr />
       <i>Dibuat Oleh MuhZulkifliGans</i>
-    </footer>
+    </footer>z
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

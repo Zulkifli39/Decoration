@@ -15,9 +15,8 @@
 
 <?php include('includes/header.php') ?>
 
-
+<h2>Tampilan Users</h2>
 <h1>Selamat Datang Di Home <?php echo $_SESSION["username"] ?></h1>
-
 
 <?php include('includes/footer.php') ?>
 
