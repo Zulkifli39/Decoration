@@ -1,6 +1,6 @@
 <?php 
 // Sertakan koneksi database
-include("service/database.php");
+include("includes/config.php");
 
 session_start();
 

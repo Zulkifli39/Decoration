@@ -8,9 +8,9 @@
   <body>
     <header>
       <h3>Belajar Buat Website Menggunakan PHP</h3>
-      <a href="index.php">Beranda</a>
-      <a href="login.php">Login</a>
-      <a href="register.php">Register</a>
+      <a href="./index.php">Beranda</a>
+      <a href="./auth/login.php">Login</a>
+      <a href="./auth/register.php">Register</a>
     </header>
   </body>
 </html>

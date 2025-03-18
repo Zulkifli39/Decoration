@@ -6,12 +6,12 @@
     <title>Website Kami</title>
 </head>
 <body>
-    <?php include(__DIR__ . '../includes/header.php'); ?>
+    <?php include(__DIR__ . '/header.php'); ?>
     
     <main>
         <h2>Halo Selamat Datang di Website Kami</h2>
     </main>
     
-    <?php include(__DIR__ . '../includes/footer.php'); ?>
+    <?php include(__DIR__ . '/footer.php'); ?>
 </body>
 </html> 

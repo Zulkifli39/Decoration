@@ -13,13 +13,13 @@
 </head>
 <body>
 
-<?php include('layout/header.php') ?>
+<?php include('includes/header.php') ?>
 
 
-<h1>Selamat Datang <?php echo $_SESSION["username"] ?></h1>
+<h1>Selamat Datang Di Home <?php echo $_SESSION["username"] ?></h1>
 
 
-<?php include('layout/footer.php') ?>
+<?php include('includes/footer.php') ?>
 
 
 

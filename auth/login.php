@@ -1,6 +1,6 @@
-<?php 
+<?php
 // Sertakan koneksi database
-include("service/database.php");
+include("../includes/config.php");
 
 session_start();
 
@@ -12,17 +12,17 @@ if (isset($_POST["login"])) {
     $password = $_POST["password"];
 
     $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-
+    
     $result = $db->query($sql);
-
-    if ($result->num_rows > 0) {
+    
+    if ($result && $result->num_rows > 0) {
         $data = $result->fetch_assoc();
-
+        
         $_SESSION["username"] = $data["username"];
         $_SESSION["is_login"] = true;
-
+        
         // Redirect ke dashboard jika login berhasil
-        header("Location: dashboard.php");
+        header("Location: ../Admin/dashboard.php");
         exit; // Hentikan eksekusi lebih lanjut setelah redirect
     } else {   
         $login_message = "Akun Tidak Ditemukan";
@@ -31,7 +31,7 @@ if (isset($_POST["login"])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,6 +43,9 @@ if (isset($_POST["login"])) {
         <input type="text" placeholder="Username" name="username" required>
         <input type="password" placeholder="Password" name="password" required>
         <button type="submit" name="login">Login Sekarang</button>
+        <?php if (!empty($login_message)): ?>
+            <p style="color: red;"><?php echo $login_message; ?></p>
+        <?php endif; ?>
     </form>
 </body>
 </html>
