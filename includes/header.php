@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- Menggunakan CDN Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-      <div class="container">
-        <a class="navbar-brand" href="#">OM Project Decoration</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Galeri & Paket</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pemesanan</a>
-            </li>
-          </ul>
-          <a href="./auth/login.php" class="btn btn-primary">Login</a>
-        </div>
-      </div>
-    </nav>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>OM Project Decoration</title>
+  
+  <!-- Tambahkan CDN Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+<body>
 
-  </body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm font-regular">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand text-white" href="#">OM Project Decoration</a>
+
+      <!-- Button for mobile toggler -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links and Login Button -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2   mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link poppins-bold text-white" href="#">Galeri & Paket</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Pemesanan</a>
+          </li>
+        </ul>
+
+        <!-- Login Button -->
+        <a href="./auth/login.php" class="btn btn-primary ms-lg-3">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tambahkan CDN Bootstrap JS dan Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>

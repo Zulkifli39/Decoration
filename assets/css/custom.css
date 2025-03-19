@@ -1,0 +1,108 @@
+/* Font Link */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap");
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+/* End Font Link */
+
+/* Login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.login-box {
+  width: 450px;
+  height: 450px;
+  border: 1px solid #ddd;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.login-box img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+}
+.login-box h2 {
+  font-family: "Times New Roman", serif;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.login-box .form-control {
+  margin-bottom: 20px;
+}
+.login-box button {
+  background-color: #5b4fff;
+  color: white;
+  width: 100%;
+  border-radius: 30px;
+}
+/* End Login */
+
+/* Register */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.register-box {
+  width: 450px;
+  height: 450px;
+  border: 1px solid #ddd;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.register-box img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+}
+.register-box h2 {
+  font-family: "Times New Roman", serif;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.register-box .form-control {
+  margin-bottom: 20px;
+}
+.register-box button {
+  background-color: #5b4fff;
+  color: white;
+  width: 100%;
+  border-radius: 30px;
+}
+/* End Register */

@@ -41,43 +41,7 @@ if (isset($_POST["login"])) {
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <style>
-      .login-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      .login-box {
-        width: 450px;
-        height: 400px;
-        border: 1px solid #ddd;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-      .login-box img {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 20px;
-        border-radius: 50%;
-      }
-      .login-box h2 {
-        font-family: 'Times New Roman', serif;
-        font-weight: bold;
-        margin-bottom: 30px;
-      }
-      .login-box .form-control {
-        margin-bottom: 20px;
-      }
-      .login-box button {
-        background-color: #5b4fff;
-        color: white;
-        width: 100%;
-        border-radius: 30px;
-      }
-    </style>
+    <link rel="stylesheet" href="../assets/css/custom.css" />
   </head>
   <body>
     <div class="login-container">
@@ -108,6 +72,8 @@ if (isset($_POST["login"])) {
           <p style="color: red;"><?php echo $login_message; ?></p>
           <?php endif; ?>
         </form>
+        <p class="mt-3">Register Here? <a href="register.php">Register di sini</a></p>
+
       </div>
     </div>
 

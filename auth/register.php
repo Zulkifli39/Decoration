@@ -1,6 +1,6 @@
 <?php 
 // Sertakan koneksi database
-include("includes/config.php");
+include("../includes/config.php");
 
 session_start();
 
@@ -43,22 +43,53 @@ if (isset($_POST["register"])) {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
-</head>
-<body>
-    <form action="" method="POST">
-        <h2>REGISTER AKUN</h2>
-        <input type="text" placeholder="Username" name="username" required>
-        <input type="password" placeholder="Password" name="password" required>
-        <button type="submit" name="register">Daftar Sekarang</button>
-    </form>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/custom.css" />
+    <style>
+   
+    </style>
+  </head>
+  <body>
+    <div class="register-container">
+      <div class="register-box">
+        <img src="../assets/Decor.jpeg"  />
+        <h2>Om Project</h2>
+        <form action="" method="POST">
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Username"
+              name="username"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit" name="register" class="btn btn-primary">Daftar Sekarang</button>
+          <?php if (!empty($register_message)): ?>
+          <p style="color: red;"><?php echo $register_message; ?></p>
+          <?php endif; ?>
+        </form>
+        <p class="mt-3">Sudah punya akun? <a href="login.php">Login di sini</a></p>
+      </div>
+    </div>
 
-    <p><?php echo $register_message; ?></p>
-
-    <!-- Tambahkan link ke halaman login -->
-    <p>Sudah punya akun? <a href="login.php">Login di sini</a></p>
-</body>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
