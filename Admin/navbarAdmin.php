@@ -44,10 +44,18 @@
             <a class="nav-link poppins-bold text-white" href="#">Galeri & Paket</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link text-white" href="#">Pembayaran</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link text-white" href="#">Pemesanan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Laporan</a>
           </li>
         </ul>
 
+        <!-- Login Button -->
+        <a href="../login.php" class="btn btn-primary ms-lg-3">Logout</a>
       </div>
     </div>
   </nav>
