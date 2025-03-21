@@ -41,7 +41,7 @@
             <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link poppins-bold text-white" href="#">Galeri & Paket</a>
+            <a class="nav-link poppins-bold text-white" href="paket.php">Galeri & Paket</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#">Pembayaran</a>
@@ -52,10 +52,23 @@
           <li class="nav-item">
             <a class="nav-link text-white" href="#">Laporan</a>
           </li>
+
+          
+        </ul>
+           <!-- Tampilkan nama admin dan tombol logout -->
+           <ul class="navbar-nav">
+          <?php  if (isset($_SESSION["is_login"]) && $_SESSION["is_login"] === true): ?>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Halo, <?php echo htmlspecialchars($_SESSION["username"]); ?>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item text-danger" href="../login.php">Logout</a></li>
+              </ul>
+            </li>
+          <?php endif; ?>
         </ul>
 
-        <!-- Login Button -->
-        <a href="../login.php" class="btn btn-primary ms-lg-3">Logout</a>
       </div>
     </div>
   </nav>

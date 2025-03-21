@@ -38,7 +38,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Paket Silver</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="./paket&geleri/silver/silver.php" class="btn btn-primary">Reservasi</a>
+                        <a href="../paket&geleri/silver/silver.php" class="btn btn-primary">Reservasi</a>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Paket Gold</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="./paket&geleri/gold/gold.php" class="btn btn-primary">Reservasi</a>
+                        <a href="../paket&geleri/gold/gold.php" class="btn btn-primary">Reservasi</a>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Paket Platinum</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="./paket&geleri/platinum/platinum.php" class="btn btn-primary">Reservasi</a>
+                        <a href="../paket&geleri/platinum/platinum.php" class="btn btn-primary">Reservasi</a>
                     </div>
                 </div>
             </div>

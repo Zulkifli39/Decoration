@@ -37,7 +37,7 @@
             <!-- Card 1 -->
             <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
                 <div class="card h-100">
-                    <img src="./assets/Decor.jpeg" class="card-img-top" alt="Decor">
+                    <img src="../assets/Decor.jpeg" class="card-img-top" alt="Decor">
                     <div class="card-body">
                         <h5 class="card-title">Dekor Lamaran</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -49,7 +49,7 @@
             <!-- Card 2 -->
             <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
                 <div class="card h-100">
-                    <img src="./assets/Decor.jpeg" class="card-img-top" alt="Decor">
+                    <img src="../assets/Decor.jpeg" class="card-img-top" alt="Decor">
                     <div class="card-body">
                         <h5 class="card-title">Dekor Hakikah</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -61,11 +61,11 @@
             <!-- Card 3 -->
             <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
                 <div class="card h-100">
-                    <img src="./assets/Decor.jpeg" class="card-img-top" alt="Decor">
+                    <img src="../assets/Decor.jpeg" class="card-img-top" alt="Decor">
                     <div class="card-body">
                         <h5 class="card-title">Dekor Ulang Tahun</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Cek Now</a>
+                        <a href="silver/ulangtahun.php" class="btn btn-primary">Cek Now</a>
                     </div>
                 </div>
             </div>
