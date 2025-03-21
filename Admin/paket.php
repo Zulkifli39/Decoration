@@ -1,6 +1,6 @@
 <?php 
 include("../includes/config.php"); 
-session_start(); // Untuk menyimpan pesan sukses
+session_start();
 
 // Variabel untuk menyimpan data yang akan diedit
 $edit_data = null;
@@ -33,53 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_id'])) {
     $lebar = $_POST['lebar'];
     
     // Cek apakah ada gambar baru yang diupload
-    if (!empty($_FILES['gambar']['name'])) {
-        $upload_dir = "../uploads/";
+    if (!empty($_FILES['gambar']['tmp_name'])) {
+        $gambar_data = file_get_contents($_FILES['gambar']['tmp_name']);
+        $gambar_blob = base64_encode($gambar_data);
         
-        // Buat direktori jika belum ada
-        if (!file_exists($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
-        }
-        
-        // Ambil nama file gambar lama
-        $sql_get_old_image = "SELECT gambar FROM galeri WHERE id = ?";
-        $stmt_get_old = $db->prepare($sql_get_old_image);
-        $stmt_get_old->bind_param("i", $id);
-        $stmt_get_old->execute();
-        $stmt_get_old->bind_result($old_gambar);
-        $stmt_get_old->fetch();
-        $stmt_get_old->close();
-        
-        // Hapus file gambar lama jika ada
-        if (!empty($old_gambar)) {
-            $file_to_delete = $upload_dir . $old_gambar;
-            if (file_exists($file_to_delete)) {
-                unlink($file_to_delete);
-            }
-        }
-        
-        // Upload gambar baru
-        $timestamp = time();
-        $file_extension = pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
-        $gambar_nama = $timestamp . '.' . $file_extension;
-        
-        $target_file = $upload_dir . $gambar_nama;
-        
-        if (move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {
-            // File berhasil diupload
-        } else {
-            $_SESSION['error_message'] = "Gagal mengupload file gambar baru!";
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
-        }
-        
-        // Update data dengan gambar baru
         $sql = "UPDATE galeri SET jenis_paket = ?, jenis_dekor = ?, nuansa = ?, 
                 harga = ?, tinggi = ?, lebar = ?, gambar = ? WHERE id = ?";
         $stmt = $db->prepare($sql);
-        $stmt->bind_param("sssssssi", $jenis_paket, $jenis_dekor, $nuansa, $harga, $tinggi, $lebar, $gambar_nama, $id);
+        $stmt->bind_param("sssssssi", $jenis_paket, $jenis_dekor, $nuansa, $harga, $tinggi, $lebar, $gambar_blob, $id);
     } else {
-        // Update data tanpa mengubah gambar
         $sql = "UPDATE galeri SET jenis_paket = ?, jenis_dekor = ?, nuansa = ?, 
                 harga = ?, tinggi = ?, lebar = ? WHERE id = ?";
         $stmt = $db->prepare($sql);
@@ -93,8 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_id'])) {
     }
     
     $stmt->close();
-    
-    // Redirect agar tidak update data lagi saat refresh
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -108,94 +68,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['edit_id'])) {
     $tinggi = $_POST['tinggi'];
     $lebar = $_POST['lebar'];
     
-    // Proses upload gambar
-    if (!empty($_FILES['gambar']['name'])) {
-        $upload_dir = "../uploads/";
-        
-        // Buat direktori jika belum ada
-        if (!file_exists($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
-        }
-        
-        // Gunakan timestamp untuk mencegah nama file duplikat
-        $timestamp = time();
-        $file_extension = pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
-        $gambar_nama = $timestamp . '.' . $file_extension;
-        
-        $target_file = $upload_dir . $gambar_nama;
-        
-        // Pastikan file diupload dengan benar
-        if (move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {
-            // File berhasil diupload
-        } else {
-            $_SESSION['error_message'] = "Gagal mengupload file gambar!";
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
-        }
-    } else {
-        $gambar_nama = null;
-    }
-
-    // Gunakan prepared statement untuk mencegah SQL Injection
+    $gambar_blob = !empty($_FILES['gambar']['tmp_name']) ? base64_encode(file_get_contents($_FILES['gambar']['tmp_name'])) : null;
+    
     $sql = "INSERT INTO galeri (jenis_paket, jenis_dekor, nuansa, harga, tinggi, lebar, gambar) 
             VALUES (?, ?, ?, ?, ?, ?, ?)";
     
     $stmt = $db->prepare($sql);
-    $stmt->bind_param("sssssss", $jenis_paket, $jenis_dekor, $nuansa, $harga, $tinggi, $lebar, $gambar_nama);
+    $stmt->bind_param("sssssss", $jenis_paket, $jenis_dekor, $nuansa, $harga, $tinggi, $lebar, $gambar_blob);
 
     if ($stmt->execute()) {
         $_SESSION['success_message'] = "Data berhasil ditambahkan!";
     } else {
         $_SESSION['error_message'] = "Gagal menambahkan data: " . $stmt->error;
     }
+    
     $stmt->close();
-
-    // Redirect agar tidak insert data lagi saat refresh
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
-// Hapus data dan file gambar terkait
+// Hapus data dari database
 if (isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
-    
-    // Ambil nama file gambar sebelum menghapus data
-    $sql_get_image = "SELECT gambar FROM galeri WHERE id = ?";
-    $stmt_get = $db->prepare($sql_get_image);
-    $stmt_get->bind_param("i", $id);
-    $stmt_get->execute();
-    $stmt_get->bind_result($gambar_nama);
-    $stmt_get->fetch();
-    $stmt_get->close();
-    
-    // Hapus file gambar jika ada
-    if (!empty($gambar_nama)) {
-        $file_to_delete = "../uploads/" . $gambar_nama;
-        if (file_exists($file_to_delete)) {
-            unlink($file_to_delete);
-        }
-    }
-    
-    // Hapus data dari database
     $sql = "DELETE FROM galeri WHERE id = ?";
     $stmt = $db->prepare($sql);
     $stmt->bind_param("i", $id);
-
+    
     if ($stmt->execute()) {
         $_SESSION['success_message'] = "Data berhasil dihapus!";
     } else {
         $_SESSION['error_message'] = "Gagal menghapus data: " . $stmt->error;
     }
-
+    
     $stmt->close();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
-// Ambil semua data galeri untuk ditampilkan di tabel
+// Ambil semua data galeri untuk ditampilkan
 $sql = "SELECT * FROM galeri";
 $result = $db->query($sql);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -288,15 +202,15 @@ $result = $db->query($sql);
                 <div class="mb-3">
                     <label for="gambar">Gambar</label>
                     <?php if ($edit_data && !empty($edit_data['gambar'])): ?>
-                        <div class="mb-2">
-                            <img src="../uploads/<?php echo htmlspecialchars($edit_data['gambar']); ?>" style="max-width: 200px; max-height: 150px;" alt="Gambar Saat Ini">
-                            <p>Gambar saat ini: <?php echo htmlspecialchars($edit_data['gambar']); ?></p>
-                        </div>
-                        <p class="text-muted">Upload gambar baru jika ingin mengubah gambar saat ini</p>
-                        <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
-                    <?php else: ?>
-                        <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
-                    <?php endif; ?>
+    <div class="mb-2">
+        <img src="data:image/jpeg;base64,<?php echo $edit_data['gambar']; ?>" style="max-width: 200px; max-height: 150px;" alt="Gambar Saat Ini">
+        <p>Gambar saat ini</p>
+    </div>
+    <p class="text-muted">Upload gambar baru jika ingin mengubah gambar saat ini</p>
+    <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
+<?php else: ?>
+    <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+<?php endif; ?>
                 </div>
                 <button type="submit" class="btn btn-primary"><?php echo ($edit_data) ? 'Update' : 'Simpan'; ?></button>
                 <button type="button" id="btnBatal" class="btn btn-secondary">Batal</button>
@@ -328,12 +242,12 @@ $result = $db->query($sql);
                     <td><?= htmlspecialchars($row['tinggi']); ?></td>
                     <td><?= htmlspecialchars($row['lebar']); ?></td>
                     <td>
-                        <?php if (!empty($row['gambar'])): ?>
-                            <img src="../uploads/<?php echo htmlspecialchars($row['gambar']); ?>" class="table-foto" alt="Gambar Dekorasi">
-                        <?php else: ?>
-                            <img src="../assets/placeholder.jpg" class="table-foto" alt="Placeholder">
-                        <?php endif; ?>
-                    </td>
+    <?php if (!empty($row['gambar'])): ?>
+        <img src="data:image/jpeg;base64,<?php echo $row['gambar']; ?>" class="table-foto" alt="Gambar Dekorasi">
+    <?php else: ?>
+        <img src="../assets/placeholder.jpg" class="table-foto" alt="Placeholder">
+    <?php endif; ?>
+</td>
                     <td>
                         <a href="?edit_id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm mb-1">Edit</a>
                         <a href="?delete_id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
