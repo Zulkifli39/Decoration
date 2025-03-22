@@ -38,19 +38,19 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2   mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+            <a class="nav-link active text-white" aria-current="page" href="dashboard.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link poppins-bold text-white" href="paket.php">Galeri & Paket</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Pembayaran</a>
+            <a class="nav-link text-white" href="pembayaran.php">Pembayaran</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Pemesanan</a>
+            <a class="nav-link text-white" href="pemesanan.php">Pemesanan</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Laporan</a>
+            <a class="nav-link text-white" href="laporan.php">Laporan</a>
           </li>
 
           
