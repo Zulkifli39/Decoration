@@ -129,8 +129,13 @@ $result = $db->query($sql);
             background-color: #f8f9fa;
         }
         .table-foto {
-            max-width: 100px;
-            max-height: 80px;
+            max-width: 60px;
+            max-height: 60px;
+        }
+
+        .table-card {
+            justify-content: center;
+            align-items: center;            
         }
     </style>
 </head>
@@ -219,7 +224,7 @@ $result = $db->query($sql);
 
         <table class="table table-bordered">
             <thead>
-                <tr class="bg-primary text-white text-center">
+                <tr class="bg-primary  text-white text-center">
                     <th>No</th>
                     <th>Paket</th>
                     <th>Dekorasi</th>
@@ -233,7 +238,7 @@ $result = $db->query($sql);
             </thead>
             <tbody>
                 <?php $no = 1; if ($result && $result->num_rows > 0) { while ($row = $result->fetch_assoc()): ?>
-                <tr class="text-center">
+                <tr class="text-center table-card">
                     <td><?= $no++; ?></td>
                     <td><?= htmlspecialchars($row['jenis_paket']); ?></td>
                     <td><?= htmlspecialchars($row['jenis_dekor']); ?></td>

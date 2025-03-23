@@ -1,4 +1,4 @@
-/* CSS DEKOR HAKIKAH,LAMARAN,ULANGTAHUN */
+/* CSS DETAIL DATA DAN DEKOR HAKIKAH ,LAMARAN ,ULANGTAHUN */
 
 h2 {
   text-align: center;
@@ -8,6 +8,7 @@ h3 {
   text-align: center;
   margin-top: 10px;
 }
+
 /* Card sizing styles */
 .card {
   width: 100%;
@@ -48,4 +49,104 @@ h3 {
   margin-bottom: 50px;
 }
 
-/* End CSS */
+/* Detail popup styles */
+.detail-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.detail-content {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+  padding: 20px;
+  margin: 30px auto;
+}
+
+.detail-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.detail-header h2 {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 24px;
+  cursor: pointer;
+  color: #555;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.detail-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.detail-image {
+  flex: 1;
+  min-width: 300px;
+  padding: 10px;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.detail-info {
+  flex: 1;
+  min-width: 300px;
+  padding: 10px;
+}
+
+.detail-info p {
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.btn-pesan {
+  background-color: #4a4de7;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.btn-pesan:hover {
+  background-color: #3a3db8;
+}
+
+@media (max-width: 768px) {
+  .detail-body {
+    flex-direction: column;
+  }
+}
