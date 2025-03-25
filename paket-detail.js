@@ -1,3 +1,5 @@
+// FUNGSI UNTUK MENAMPILKAN POPUP DETAIL PAKET
+
 // Dapatkan semua tombol detail
 const detailButtons = document.querySelectorAll(".detail-btn");
 const detailPopup = document.getElementById("detailPopup");

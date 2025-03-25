@@ -13,7 +13,7 @@
 
         .card img {
             object-fit: cover;
-            height: 200px; /* Tinggi gambar seragam */
+            height: 200px; 
         }
 
         .mt-custom {
@@ -22,8 +22,8 @@
         }
 
         .card {
-            max-width: 300px; /* Membatasi lebar card agar tidak terlalu besar */
-            margin: 0 auto;  /* Membuat card berada di tengah */
+            max-width: 300px; 
+            margin: 0 auto; 
         }
     </style>
     

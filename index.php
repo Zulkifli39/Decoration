@@ -30,7 +30,6 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 
-
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/Decoration/service-worker.js")
