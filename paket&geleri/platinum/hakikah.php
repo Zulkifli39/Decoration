@@ -80,7 +80,7 @@ $result = $db->query($sql);
                        Tinggi: <span id="popupTinggi"></span><br>
                        Lebar: <span id="popupLebar"></span>
                     </p>
-                    <button class="btn-pesan">Pesan Sekarang</button>
+                    <a class="btn-pesan" href="../../layout/pemesanan.php">Pesan Sekarang</a>
                 </div>
             </div>
         </div>

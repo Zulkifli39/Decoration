@@ -36,7 +36,10 @@
             <a class="nav-link text-white" href="#">Galeri & Paket</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Pemesanan</a>
+            <a class="nav-link text-white" href="../layout/pemesanan.php">Pemesanan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="../layout/riwayat.php">Riwayat Pemesanan</a>
           </li>
         </ul>
 
