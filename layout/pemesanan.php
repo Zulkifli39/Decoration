@@ -5,6 +5,12 @@ session_start();
 
 $pesan_konfirmasi = "";
 $status_konfirmasi = false;
+$gambar_pesanan = ""; // Variabel untuk menyimpan gambar base64
+
+
+if (!$db) {
+    die("Koneksi database gagal: " . mysqli_connect_error());
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil data dari form
@@ -16,18 +22,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jenis_dekorasi = $_POST["jenis_dekorasi"];
     $nuansa = $_POST["nuansa"];
     $harga = $_POST["harga"];
+    $gambar_pesanan = $_POST["gambar_pesanan"] ?? "";
 
-    // Query SQL untuk menyimpan data
-    $sql = "INSERT INTO pemesanan (nama, telepon, alamat, tanggal_acara, jenis_paket, jenis_dekorasi, nuansa, harga) 
-            VALUES (?, ?, ?, ?, ?, ?, ? ,?)";
-    
+    // Query SQL
+    $sql = "INSERT INTO pemesanan (nama, telepon, alamat, tanggal_acara, jenis_paket, jenis_dekorasi, nuansa, harga, gambar) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     // Persiapkan statement
     $stmt = $db->prepare($sql);
-    
-    // Bind parameter
-    $stmt->bind_param("ssssssss", $nama, $telepon, $alamat, $tanggal_acara, $jenis_paket, $jenis_dekorasi, $nuansa, $harga);
 
-    // Tampilan Pesanan
+    // Periksa apakah prepare() berhasil
+    if (!$stmt) {
+        die("Kesalahan pada query: " . $db->error);
+    }
+
+    // Bind parameter
+    $stmt->bind_param("sssssssss", $nama, $telepon, $alamat, $tanggal_acara, $jenis_paket, $jenis_dekorasi, $nuansa, $harga, $gambar_pesanan);
+
+    // Eksekusi query
     if ($stmt->execute()) {
         $pesan_konfirmasi = "Pesanan berhasil disimpan!";
         $status_konfirmasi = true;
@@ -35,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pesan_konfirmasi = "Gagal menyimpan pesanan: " . $stmt->error;
         $status_konfirmasi = false;
     }
-    
+
     // Tutup statement
     $stmt->close();
 }
@@ -49,12 +61,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Form Pemesanan Dekorasi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        #previewImage {
+            max-width: 300px;
+            max-height: 300px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="card shadow-lg p-4 w-100" style="max-width: 800px;">
             <h2 class="text-center mb-4">Form Pemesanan Dekorasi</h2>
+            
+            <!-- Bagian Pratinjau Gambar -->
+            <div class="text-center mb-4">
+                <img id="previewImage" src="" alt="Preview Dekorasi" style="display:none;">
+            </div>
+            
             <form id="pesananForm" method="POST" action="">
+                <!-- Input tersembunyi untuk menyimpan gambar base64 -->
+                <input type="hidden" name="gambar_pesanan" id="gambarPesananInput">
+                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -77,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Jenis Paket</label>
-                            <select name="jenis_paket" class="form-select" required>
+                            <select name="jenis_paket" class="form-select" id="jenisPaketSelect" required>
                                 <option value="Silver">Silver</option>
                                 <option value="Gold">Gold</option>
                                 <option value="Platinum">Platinum</option>
@@ -105,9 +133,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script>
+    // Fungsi untuk memuat dan menampilkan gambar dari localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+        const gambarPesanan = localStorage.getItem('gambarPesanan');
+        const previewImage = document.getElementById('previewImage');
+        const gambarPesananInput = document.getElementById('gambarPesananInput');
+
+        if (gambarPesanan) {
+            previewImage.src = gambarPesanan;
+            previewImage.style.display = 'block';
+            
+            // Simpan gambar base64 ke input tersembunyi untuk dikirim dengan form
+            gambarPesananInput.value = gambarPesanan;
+        }
+
+        // Opsional: Hapus localStorage setelah digunakan
+        localStorage.removeItem('gambarPesanan');
+    });
+
     <?php if (!empty($pesan_konfirmasi)): ?>
         Swal.fire({
             title: '<?= $status_konfirmasi ? 'Sukses!' : 'Error!' ?>',
