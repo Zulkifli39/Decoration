@@ -17,15 +17,19 @@ if (isset($_POST['submit_pembayaran']) && isset($_FILES['bukti'])) {
     $id_pemesanan = $_POST['id_pemesanan'];
     $bukti = file_get_contents($_FILES['bukti']['tmp_name']); // Ambil data file
 
-    // Pastikan file tidak kosong
     if (!empty($bukti)) {
-        // Gunakan prepared statement
-        $stmt = $db->prepare("UPDATE pemesanan SET bukti = ? WHERE id = ?");
+        // Gunakan transaksi untuk memastikan perubahan status dan bukti tersimpan bersamaan
+        $db->begin_transaction();
+
+        // Update kolom bukti dan status menjadi "pending"
+        $stmt = $db->prepare("UPDATE pemesanan SET bukti = ?, status = 'pending' WHERE id = ?");
         $stmt->bind_param("si", $bukti, $id_pemesanan);
 
         if ($stmt->execute()) {
-            $_SESSION['alert'] = "Bukti pembayaran berhasil diunggah!";
+            $db->commit(); // Simpan perubahan jika berhasil
+            $_SESSION['alert'] = "Bukti pembayaran berhasil diunggah! Status pesanan menjadi 'Pending'.";
         } else {
+            $db->rollback(); // Batalkan jika ada kesalahan
             $_SESSION['alert'] = "Gagal mengunggah bukti pembayaran!";
         }
         
@@ -71,10 +75,14 @@ if (isset($_POST['submit_pembayaran']) && isset($_FILES['bukti'])) {
                                     <p><strong>Nama:</strong> <?= htmlspecialchars($row['nama'] ?? 'Tidak tersedia'); ?></p>
                                     <p><strong>No HP/WA:</strong> <?= htmlspecialchars($row['telepon'] ?? 'Tidak tersedia'); ?></p>
                                     <p><strong>Alamat:</strong> <?= htmlspecialchars($row['alamat'] ?? 'Tidak tersedia'); ?></p>
+                                    <p><strong>Tanggal Acara:</strong> <?= htmlspecialchars($row['tanggal_acara'] ?? 'Tidak tersedia'); ?></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Tanggal Pemesanan:</strong> <?= htmlspecialchars($row['tanggal'] ?? 'Tidak tersedia'); ?></p>
-                                    <p><strong>Jumlah:</strong> <?= htmlspecialchars($row['jumlah'] ?? 'Tidak tersedia'); ?></p>
+                                    <p><strong>Jenis Paket:</strong> <?= htmlspecialchars($row['jenis_paket'] ?? 'Tidak tersedia'); ?></p>
+                                    <p><strong>Jenis Dekorasi:</strong> <?= htmlspecialchars($row['jenis_dekorasi'] ?? 'Tidak tersedia'); ?></p>
+                                    <p><strong>Nuansa:</strong> <?= htmlspecialchars($row['nuansa'] ?? 'Tidak tersedia'); ?></p>
+                                    <p><strong>Harga:</strong> <?= htmlspecialchars($row['harga'] ?? 'Tidak tersedia'); ?></p>
+                                    <p><strong>Status:</strong> <?= htmlspecialchars($row['status'] ?? 'Tidak tersedia'); ?></p>
                                     <button class="btn btn-primary" 
                                         onclick="showPopup('<?= htmlspecialchars($row['nama']); ?>', '<?= htmlspecialchars($row['telepon']); ?>', '<?= $row['id']; ?>')">
                                         Bayar Sekarang
