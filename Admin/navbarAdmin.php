@@ -19,7 +19,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm font-regular">
     <div class="container">
       <!-- Brand -->
-      <a class="navbar-brand text-white" href="#">OM Project Decoration</a>
+      <a class="navbar-brand poppins-bold text-white" href="#">OM PROJECT DECORATION</a>
 
       <!-- Button for mobile toggler -->
       <button
@@ -41,7 +41,7 @@
             <a class="nav-link active text-white" aria-current="page" href="dashboard.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link poppins-bold text-white" href="paket.php">Galeri & Paket</a>
+            <a class="nav-link  text-white" href="paket.php">Galeri&paket</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="pembayaran.php">Pembayaran</a>

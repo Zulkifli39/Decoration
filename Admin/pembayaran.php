@@ -64,7 +64,7 @@ $result = $db->query($sql);
     <?php include('navbarAdmin.php'); ?>
 
     <div class="container mt-5">
-        <h2 class="mb-4">Data Pemesanan</h2>
+        <h2 class="mb-4">Data Pembayaran</h2>
 
         <!-- Tampilkan pesan sukses/gagal -->
         <?php if (isset($_SESSION['success_message'])): ?>
@@ -78,10 +78,10 @@ $result = $db->query($sql);
             </div>
         <?php endif; ?>
 
-        <div class="table-responsive">
+        <div class="table-responsive text-center">
             <table class="table table-bordered table-striped">
-                <thead class="table-dark text-center">
-                    <tr>
+                <thead class="bg-primary text-center">
+                    <tr class="text-white">
                         <th>No</th>
                         <th>Nama</th>
                         <th>Telepon</th>
@@ -89,6 +89,8 @@ $result = $db->query($sql);
                         <th>Tanggal Acara</th>
                         <th>Jenis Paket</th>
                         <th>Jenis Dekorasi</th>
+                        <th>Nuansa</th>
+                        <th>Harga</th>
                         <th>Status</th>
                         <th>Bukti</th>
                         <th>Opsi</th>
@@ -108,6 +110,8 @@ $result = $db->query($sql);
                         <td><?= htmlspecialchars($row['tanggal_acara']); ?></td>
                         <td><?= htmlspecialchars($row['jenis_paket']); ?></td>
                         <td><?= htmlspecialchars($row['jenis_dekorasi']); ?></td>
+                        <td><?= htmlspecialchars($row['nuansa']); ?></td>
+                        <td><?= htmlspecialchars($row['harga']); ?></td>
                         <td>
                             <span class="badge 
                             <?php 
@@ -149,7 +153,7 @@ $result = $db->query($sql);
                         <td>
                             <div class="btn-group-vertical" role="group">
                                 <?php if ($row['status'] != 'diproses'): ?>
-                                    <a href="?change_status=1&id=<?= $row['id']; ?>&status=diproses" class="btn btn-info btn-sm" onclick="return confirm('Terima pesanan ini?')">Terima</a>
+                                    <a href="?change_status=1&id=<?= $row['id']; ?>&status=diproses" class="btn btn-primary btn-sm" onclick="return confirm('Terima pesanan ini?')">Terima</a>
                                 <?php endif; ?>
                                 
                                 <?php if ($row['status'] != 'selesai'): ?>
@@ -157,10 +161,10 @@ $result = $db->query($sql);
                                 <?php endif; ?>
                                 
                                 <?php if ($row['status'] != 'ditolak'): ?>
-                                    <a href="?change_status=1&id=<?= $row['id']; ?>&status=ditolak" class="btn btn-danger btn-sm" onclick="return confirm('Tolak pesanan ini?')">Tolak</a>
+                                    <a href="?change_status=1&id=<?= $row['id']; ?>&status=ditolak" class="btn btn-warning btn-sm" onclick="return confirm('Tolak pesanan ini?')">Tolak</a>
                                 <?php endif; ?>
                                 
-                                <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-secondary btn-sm" onclick="return confirm('Anda yakin ingin menghapus data ini?')">Hapus</a>
+                                <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus data ini?')">Hapus</a>
                             </div>
                         </td>
                     </tr>

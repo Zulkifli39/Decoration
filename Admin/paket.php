@@ -254,7 +254,7 @@ $result = $db->query($sql);
     <?php endif; ?>
 </td>
                     <td>
-                        <a href="?edit_id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm mb-1">Edit</a>
+                        <a href="?edit_id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm ">Edit</a>
                         <a href="?delete_id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
                     </td>
                 </tr>

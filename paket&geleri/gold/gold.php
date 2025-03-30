@@ -34,6 +34,7 @@
     </style>
 </head>
 <body>
+
     <h2>Galeri & Paket</h2>
     <h3>Gold</h3>
     <div class="container mt-custom">

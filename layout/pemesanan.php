@@ -62,75 +62,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
-        #previewImage {
-            max-width: 300px;
-            max-height: 300px;
-            margin-bottom: 15px;
+         #previewImage {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card shadow-lg p-4 w-100" style="max-width: 800px;">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card shadow-lg p-4 w-100" style="max-width: 1100px;">
             <h2 class="text-center mb-4">Form Pemesanan Dekorasi</h2>
-            
-            <!-- Bagian Pratinjau Gambar -->
-            <div class="text-center mb-4">
+
+            <!-- Bagian Gambar & Form -->
+            <div class="row">
+                <!-- Kolom untuk Gambar -->
+                <div class="col-md-4 text-center">
                 <img id="previewImage" src="" alt="Preview Dekorasi" style="display:none;">
-            </div>
-            
-            <form id="pesananForm" method="POST" action="">
-                <!-- Input tersembunyi untuk menyimpan gambar base64 -->
-                <input type="hidden" name="gambar_pesanan" id="gambarPesananInput">
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Nama</label>
-                            <input type="text" name="nama" class="form-control" placeholder="Masukkan nama" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nomor Telepon</label>
-                            <input type="tel" name="telepon" class="form-control" placeholder="Masukkan nomor telepon" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Alamat</label>
-                            <textarea name="alamat" class="form-control" rows="3" placeholder="Masukkan alamat" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Tanggal Acara</label>
-                            <input type="date" name="tanggal_acara" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Jenis Paket</label>
-                            <select name="jenis_paket" class="form-select" id="jenisPaketSelect" required>
-                                <option value="Silver">Silver</option>
-                                <option value="Gold">Gold</option>
-                                <option value="Platinum">Platinum</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Jenis Dekorasi</label>
-                            <select name="jenis_dekorasi" class="form-select" required>
-                                <option value="Lamaran">Lamaran</option>
-                                <option value="Pernikahan">Pernikahan</option>
-                                <option value="Ulang Tahun">Ulang Tahun</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nuansa Dekor</label>
-                            <input type="text" name="nuansa" class="form-control" placeholder="Contoh: Rustic, Minimalis" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Harga</label>
-                            <input type="text" name="harga" class="form-control" placeholder="Masukkan harga" required>
-                        </div>
-                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary w-100 mt-3">Buat Pesanan</button>
-            </form>
+
+                <!-- Kolom untuk Form -->
+                <div class="col-md-8">
+                    <form id="pesananForm" method="POST" action="">
+                        <input type="hidden" name="gambar_pesanan" id="gambarPesananInput">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" name="nama" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nomor Telepon</label>
+                                    <input type="tel" name="telepon" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Alamat</label>
+                                    <textarea name="alamat" class="form-control" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Tanggal Acara</label>
+                                    <input type="date" name="tanggal_acara" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Jenis Paket</label>
+                                    <select name="jenis_paket" class="form-select" required>
+                                        <option value="Silver">Silver</option>
+                                        <option value="Gold">Gold</option>
+                                        <option value="Platinum">Platinum</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Jenis Dekorasi</label>
+                                    <select name="jenis_dekorasi" class="form-select" required>
+                                        <option value="Lamaran">Lamaran</option>
+                                        <option value="Pernikahan">Pernikahan</option>
+                                        <option value="Ulang Tahun">Ulang Tahun</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nuansa Dekor</label>
+                                    <input type="text" name="nuansa" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Harga</label>
+                                    <input type="text" name="harga" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Buat Pesanan</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     

@@ -10,14 +10,13 @@ $result = $db->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Platinum Card</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/galeri/dekor.css">
 </head>
 <body>
-    <h2>Paket Platinum</h2>
-    <h3>Lamaran</h3>
+    <h2>Paket Silver</h2>
+    <h3>Hakikah</h3>
     
     <div class="container mt-custom">
         <div class="row g-3 justify-content-center">
@@ -49,7 +48,7 @@ $result = $db->query($sql);
                     </div>';
                 }
             } else {
-                echo "<p class='text-center'>Tidak ada data paket platinum dengan dekor hakikah</p>";
+                echo "<p class='text-center'>Tidak ada data paket Silver dengan dekor hakikah</p>";
             }
             $db->close();
             ?>

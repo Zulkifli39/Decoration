@@ -154,6 +154,7 @@ if (isset($_POST['submit_pembayaran']) && isset($_FILES['bukti'])) {
                 document.getElementById('detailPopup').style.display = 'none';
             }
         });
+
     </script>
 
 </body>
