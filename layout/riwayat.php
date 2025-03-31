@@ -1,7 +1,9 @@
 <?php
 include("../includes/config.php");
+
 session_start();
 
+// Menampilkan notifikasi jika ada dalam sesi
 if (isset($_SESSION['alert'])) {
     echo "<script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -13,38 +15,47 @@ if (isset($_SESSION['alert'])) {
             });
         });
     </script>";
-    unset($_SESSION['alert']);
+    unset($_SESSION['alert']); // Menghapus notifikasi setelah ditampilkan
 }
 
+// Mengambil data pemesanan dari database
 $sql = "SELECT * FROM pemesanan";
 $result = $db->query($sql);
 
+// Menangani proses upload bukti pembayaran
 if (isset($_POST['submit_pembayaran']) && isset($_FILES['bukti'])) {
     $id_pemesanan = $_POST['id_pemesanan'];
+    
+    // Membaca file bukti pembayaran yang diunggah
     $bukti = file_get_contents($_FILES['bukti']['tmp_name']);
-
+    
+    // Memeriksa apakah file bukti pembayaran valid
     if (!empty($bukti)) {
-        $db->begin_transaction();
+        $db->begin_transaction(); 
+        
+        // Menyiapkan query untuk menyimpan bukti pembayaran
         $stmt = $db->prepare("UPDATE pemesanan SET bukti = ?, status = 'pending' WHERE id = ?");
         $stmt->bind_param("si", $bukti, $id_pemesanan);
-
+        
         if ($stmt->execute()) {
-            $db->commit();
+            $db->commit(); 
             $_SESSION['alert'] = "Bukti pembayaran berhasil diunggah! Status pesanan menjadi 'Pending'.";
         } else {
-            $db->rollback();
+            $db->rollback(); 
             $_SESSION['alert'] = "Gagal mengunggah bukti pembayaran!";
         }
-
-        $stmt->close();
+        
+        $stmt->close(); // Menutup statement
     } else {
         $_SESSION['alert'] = "File bukti pembayaran tidak valid!";
     }
-
+    
+    // Redirect kembali ke halaman yang sama untuk memperbarui tampilan
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -109,8 +120,7 @@ if (isset($_POST['submit_pembayaran']) && isset($_FILES['bukti'])) {
         <?php endif; ?>
 
         <!-- Popup Pembayaran -->
-         <!-- Popup Pembayaran -->
-         <div class="detail-popup" id="detailPopup">
+        <div class="detail-popup" id="detailPopup">
             <div class="detail-content">
                 <div class="detail-header">
                     <div class="close-btn" id="closeDetail">&times;</div>
@@ -126,10 +136,11 @@ if (isset($_POST['submit_pembayaran']) && isset($_FILES['bukti'])) {
                         <label class="checkbox-label"><input type="checkbox" id="bayarPenuh"> Bayar Penuh</label>
 
                         <p><strong>Bukti Pembayaran:</strong></p>
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data" id="paymentForm">
                             <input type="hidden" name="id_pemesanan" id="idPemesanan">
                             <input type="file" name="bukti" accept="image/*" required class="form-control mb-2">
-                            <button type="submit" name="submit_pembayaran" class="btn btn-primary">Kirim</button>
+                            <button type="button" id="submitBtn" class="btn btn-primary">Kirim</button>
+                            <button type="submit" name="submit_pembayaran" id="realSubmitBtn" class="d-none">Submit</button>
                         </form>
                     </div>
 
@@ -164,14 +175,41 @@ if (isset($_POST['submit_pembayaran']) && isset($_FILES['bukti'])) {
         }
     });
 
-    // Menangani pesan pengiriman form pembayaran 
-    document.getElementById("paymentForm").addEventListener("submit", function() {
-        let idPemesanan = document.getElementById('idPemesanan').value;
-        let bayarBtn = document.getElementById('bayarBtn-' + idPemesanan);
-        if (bayarBtn) {
-            bayarBtn.style.display = 'none';
-            bayarBtn.insertAdjacentHTML('afterend', '<span class="badge bg-success">Pembayaran Dikirim</span>');
+    // Menggunakan button biasa dan SweetAlert sebelum submit form
+    document.getElementById("submitBtn").addEventListener("click", function() {
+        const fileInput = document.querySelector('input[name="bukti"]');
+        if (!fileInput.files || fileInput.files.length === 0) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Silakan pilih file bukti pembayaran terlebih dahulu',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return;
         }
+        
+        // Tampilkan SweetAlert
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin mengirim bukti pembayaran ini?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Kirim',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Tampilkan SweetAlert sukses
+                Swal.fire({
+                    title: 'Sukses',
+                    text: 'Bukti pembayaran sedang diproses...',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Submit form setelah user klik OK
+                    document.getElementById("realSubmitBtn").click();
+                });
+            }
+        });
     });
 </script>
 
