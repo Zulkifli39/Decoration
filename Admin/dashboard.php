@@ -24,6 +24,7 @@ $total_pemesanan = $row_pemesanan['total_pemesanan'];
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <?php include('navbarAdmin.php'); ?>
@@ -52,9 +53,42 @@ $total_pemesanan = $row_pemesanan['total_pemesanan'];
             </div>
         </div>
     </div>
+    <div class="row justify-content-center mt-5">
+    <div class="col-md-6 mt-5">
+        <canvas id="chartGaleriPemesanan"></canvas>
+    </div>
+</div>
 </div>
 
 <!-- Bootstrap 5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Ambil data dari PHP
+    var totalGaleri = <?php echo $total_galeri; ?>;
+    var totalPemesanan = <?php echo $total_pemesanan; ?>;
+
+    var ctx = document.getElementById('chartGaleriPemesanan').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar', // Bisa diganti 'bar', 'line', 'pie'
+        data: {
+            labels: ['Galeri', 'Pemesanan'],
+            datasets: [{
+                label: 'Jumlah Data',
+                data: [totalGaleri, totalPemesanan],
+                backgroundColor: ['#007bff', '#28a745'], // Warna biru & hijau
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                }
+            }
+        }
+    });
+</script>
+
 </body>
 </html>
