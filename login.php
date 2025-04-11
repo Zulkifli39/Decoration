@@ -52,7 +52,7 @@ if (isset($_POST["login"])) {
   <body>
     <div class="login-container">
       <div class="login-box">
-        <img src="./assets/Decor.jpeg"  />
+        <img src="./assets/Decor.png"  />
         <h2 class="font-weight-bold text-black">Om Project</h2>
         <form action="" method="POST">
           <div class="mb-3">

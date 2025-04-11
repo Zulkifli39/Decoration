@@ -1,30 +1,42 @@
-const CACHE_NAME = "php-pwa-cache-v1";
-const urlsToCache = ["/", "index.php", "./assets/css/custom.css", "./assets/Decor.jpeg"];
+const CACHE_NAME = "SW-001";
+const toCache = [
+  "/index.php",
+  "manifest.json",
+  "service-worker.js",
+  "assets/Decor.png",
+  "assets/paketgold.png",
+  "assets/paketplatinum.png",
+  "assets/paketsilver.png",
+];
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
+      return cache.addAll(toCache);
     })
   );
 });
+
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
+    fetch(event.request).catch(() =>
+      caches.match(event.request).then((response) => {
+        return response || caches.match("/index.php");
+      })
+    )
   );
 });
+
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log("Service Worker: Deleting old cache", cache);
-            return caches.delete(cache);
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
           }
         })
-      );
-    })
+      )
+    )
   );
 });

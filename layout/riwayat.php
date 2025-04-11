@@ -68,7 +68,11 @@ if (isset($_POST['submit_pembayaran']) && isset($_FILES['bukti'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div class="container mt-4">
+
+<?php include('../includes/header.php'); ?>
+
+
+    <div class="container mt-5">
         <h2 class="text-center fw-bold mb-4">Riwayat Pemesanan</h2>
 
         <?php if ($result && $result->num_rows > 0) : ?>
